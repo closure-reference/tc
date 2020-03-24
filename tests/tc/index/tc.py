@@ -91,6 +91,11 @@ def test(t, m):
                     e= 666
                 )(
                     matcher= "plain",
+                    it= "get_age({'age': 666, 'name': 'John'}) is 666",
+                    i= get_age({'name': 'John', 'age': 666}),
+                    e= 666
+                )(
+                    matcher= "plain",
                     it= "get_age({'name': 'John', 'age': (1.0, 5.3)}) is 1.0+5.3j",
                     i= get_age({'name': 'John', 'age': (1.0, 5.3)}),
                     e= 1.0+5.3j
@@ -98,5 +103,15 @@ def test(t, m):
                     matcher= "plainerror",
                     it= "get_age({'name': 'John', 'age': 'nine'}) raises CheckFailed",
                     i= lambda: get_age({'name': 'John', 'age': 'nine'}),
+                    e= CheckFailed
+                )(
+                    matcher= "plainerror",
+                    it= "get_age({'name': 'John', 'age': 9, 'job': 'programmer'}) raises CheckFailed",
+                    i= lambda: get_age({'name': 'John', 'age': 9, 'job': 'programmer'}),
+                    e= CheckFailed
+                )(
+                    matcher= "plainerror",
+                    it= "get_age({'name': 'John'}) raises CheckFailed",
+                    i= lambda: get_age({'name': 'John'}),
                     e= CheckFailed
                 )
