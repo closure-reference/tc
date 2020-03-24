@@ -4,7 +4,17 @@ from functools import wraps
 
 from inspect import getfullargspec as arg_spec
 
-from checkers import checkers, Either, Record, DictOf
+try:
+    from checkers import checkers, Either, Record, DictOf
+except ImportError:
+    from .checkers import checkers, Either, Record, DictOf
+
+
+def either(*options):
+    return Either(options)
+
+def dict_of(*options):
+    return DictOf(options)
 
 
 def check_value(template, value):
@@ -15,11 +25,25 @@ def check_value(template, value):
              
 
 
-def check(func):
-    templates = arg_spec(func).annotations
+def tc(func):
+    spec = arg_spec(func)
+    arg_names = spec.args
+    templates = {**{arg: object for arg in arg_names}, **spec.annotations}
+
     @wraps(func)
     def new_fn(*args, **kwargs):
-        return 
+        full_kwargs = {**{name: arg
+                          for name, arg in zip(arg_names, args)},
+                       **kwargs}
+
+        for name, arg in full_kwargs.items():
+            if not check_value(templates[name], arg):
+                raise CheckFailed
+
+        return func(*args, **kwargs)
+
+    return new_fn
+
 
 
 class CheckFailed(TypeError):
