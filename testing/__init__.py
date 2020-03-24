@@ -105,7 +105,7 @@ def test_testable(module, module_name, *, name, unittest_path):
         tester(driver, module)
 
     print_driver_results(f"{module_name}::{name}",
-                         module["__doc__"],
+                         subject.__doc__,
                          driver.tests)
     print()
 
@@ -113,7 +113,7 @@ def test_testable(module, module_name, *, name, unittest_path):
 # TODO: refactor this spaghetti...
 def print_driver_results(name, doc, tests):
     print(Style.BRIGHT + name + Style.RESET_ALL)
-    print(doc or Back.MAGENTA + Fore.WHITE + "no docstring!" + Style.RESET_ALL)
+    print(doc or Back.MAGENTA + Fore.WHITE + "(no docstring)" + Style.RESET_ALL)
     last_ctx = ()
     for context, test_results in tests.items():
         first_index = 0
@@ -145,7 +145,7 @@ def str_result(result, indent):
                + "\n" \
                + indent + Fore.RED + f"   - expected ({result['expected']})" \
                + "\n" \
-               + indent + Fore.GREEN + f"   + actual ({result['actual']})" \
+               + indent + Fore.GREEN + f"   + actual   ({result['actual']})" \
                + Style.RESET_ALL \
                + "\n"
 
