@@ -6,7 +6,7 @@ def test(t, m):
     Record = m["Record"]
 
 
-    with t("given an annotationless function"):
+    with t("given an annotationless function f(x, y, z)"):
         @tc
         def f(x, y, z):
             return x + y + z
@@ -94,4 +94,9 @@ def test(t, m):
                     it= "get_age({'name': 'John', 'age': (1.0, 5.3)}) is 1.0+5.3j",
                     i= get_age({'name': 'John', 'age': (1.0, 5.3)}),
                     e= 1.0+5.3j
+                )(
+                    matcher= "plainerror",
+                    it= "get_age({'name': 'John', 'age': 'nine'}) raises CheckFailed",
+                    i= lambda: get_age({'name': 'John', 'age': 'nine'}),
+                    e= CheckFailed
                 )
