@@ -107,18 +107,29 @@ def test_testable(module, module_name, *, name, unittest_path):
     print_driver_results(f"{module_name}::{name}",
                          module["__doc__"],
                          driver.tests)
+    print()
 
 
+# TODO: refactor this spaghetti...
 def print_driver_results(name, doc, tests):
     print(Style.BRIGHT + name + Style.RESET_ALL)
     print(doc or Back.MAGENTA + Fore.WHITE + "no docstring!" + Style.RESET_ALL)
+    last_ctx = ()
     for context, test_results in tests.items():
-        indent = (len(context)) * "     "
-        if context:
-            print(indent + Fore.CYAN + context[-1] + Style.RESET_ALL)
-        indent += "     "
+        first_index = 0
+        while (min(
+                len(last_ctx),
+                len(context)) > first_index) and (last_ctx[first_index] == context[first_index]):
+            first_index += 1
+
+        for i in range(first_index, len(context)):
+            print(i * "     " + Fore.CYAN + context[i] + Style.RESET_ALL)
+
+        indent = len(context) *"     "
         for test_result in test_results:
             print(str_result(test_result, indent))
+
+        last_ctx = context
 
 
 def align(s, indent):

@@ -26,3 +26,38 @@ def compare(s, *, it, e):
         "expected": e,
         "actual": s
     }
+
+
+@_
+def error(s, *, it, i, e):
+    try:
+        result = s(*i)
+    except Exception as exc:
+        return {
+            "title" : it,
+            "expected": e,
+            "actual": type(exc)
+        }
+    else:
+        return {
+            "title": it,
+            "expected": e,
+            "actual": ["no error", result]
+        }
+
+@_
+def plainerror(s, *, it, i, e):
+    try:
+        result = i()
+    except Exception as exc:
+        return {
+            "title" : it,
+            "expected": e,
+            "actual": type(exc)
+        }
+    else:
+        return {
+            "title": it,
+            "expected": e,
+            "actual": ["no error", result]
+        }
