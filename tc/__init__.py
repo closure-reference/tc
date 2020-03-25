@@ -1,1 +1,4 @@
-from .tc import tc, Either, Record, DictOf, either, dict_of, CheckFailed
+from .index import tc
+from .index import Record, Suprecord
+from .index import either, product, dict_of, extend, msg
+from .index import CheckFailed
