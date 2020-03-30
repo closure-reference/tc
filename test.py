@@ -1,1 +1,1 @@
-import example_project
+import tests
