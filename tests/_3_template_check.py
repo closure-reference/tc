@@ -12,11 +12,8 @@ to ensure argument types at runtime.
 """
 
 def error(func, args, ty):
-    try:
-        func(args)
-        return False
-    except BaseException as e:
-        return isinstance(e, ty)
+    try: func(args); return False
+    except BaseException as e: return isinstance(e, ty)
 
 
 if "simple example":
@@ -40,4 +37,3 @@ if "compose templates to perform checks instead of using if":
     assert add_ints(3, 5) == 8
     assert error(add_ints, ("a", "b"), tc.CheckFailed)
     assert error(add_ints, (True, False), tc.CheckFailed)
-    
