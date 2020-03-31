@@ -180,7 +180,7 @@ if "supports all the complex templates that other functions support":
                 (ExistingName, lambda u: next(get_users_by_name(u))),
                 (MissingName,  lambda u: None),
                 (ExistingUID,  lambda u: database[u]),
-                (MissingUID,  lambda u: None),
+                (MissingUID,   lambda u: None),
             ],      fallback=  lambda u: None
             )(user)(user)
 
