@@ -13,7 +13,7 @@ assert tc.check(int, 1)
 assert tc.check(tuple, ())
 
 """
-In functional languages, types represent sets,
+From a mathematical point of view, types represent sets,
 that is, collections of elements that satisfy a certain criterion.
 In OOP (usually) type ≡ class, so to avoid confusion,
 I will call these things "templates".
