@@ -11,7 +11,7 @@ tc.match( [(T(i), v(i))], fallback=None ): spec ⟼ (input ⟼ output)
 tc.match will iterate over the (template, choice) pairs
 and choose the appropriate output.
 
-This is analogous to `case` in Erlang/Elixir.
+This is analogous to `case` in Erlang/Elixir or `case .. of` in Haskell.
 """
 
 if "simple example":
